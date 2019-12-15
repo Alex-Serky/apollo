@@ -152,4 +152,13 @@ class DefaultController extends AbstractController
     {
         exit('Transmission du contrôleur de test - ' . $param);
     }
+
+    public function mostPopularPosts($number = 3)
+    {
+        // database call
+        $posts = ['post 1', 'post 2', 'post 3', 'post 4'];
+        return $this->render('default/most_popular_posts.html.twig', [
+            'posts' => $posts
+        ]);
+    }
 }

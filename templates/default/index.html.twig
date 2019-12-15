@@ -25,7 +25,7 @@
 		Ce message amical vient de :
 
 		<ul>
-			<li>Votre controller à
+			<li>Votre contrôleur à
 				<code>
 					<a href="{{ '/Applications/XAMPP/xamppfiles/htdocs/symfony4-5/apollo/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a>
 				</code>
@@ -36,6 +36,13 @@
 				</code>
 			</li>
 		</ul>
+		{{render(controller(
+			'App\\Controller\\DefaultController::mostPopularPosts',
+			{ 'number': 5 }
+		))}}
+		{{app.user}}
+		{{app.request.get('param')}}
+		{{app.environment}}
 		<ul>
 			{% for user in users %}
 				<li>{{user.name}}
