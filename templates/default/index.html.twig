@@ -36,31 +36,6 @@
 				</code>
 			</li>
 		</ul>
-		{{render(controller(
-			'App\\Controller\\DefaultController::mostPopularPosts',
-			{ 'number': 5 }
-		))}}
-		{{app.user}}
-		{{app.request.get('param')}}
-		{{app.environment}}
-		<ul>
-			{% for user in users %}
-				<li>{{user.name}}
-					- Vous avez gagné
-					{{random_gift[loop.index0]}}</li>
-			{% endfor %}
-		</ul>
-		{% for message in app.flashes('notice') %}
-			<div class="flash-notice">
-				{{ message }}
-			</div>
-		{% endfor %}
-		{% for label, messages in app.flashes %}
-			{% for message in messages %}
-				<div class="flash-{{ label }}">
-					{{ message }}
-				</div>
-			{% endfor %}
-		{% endfor %}
+
 	</div>
 {% endblock %}
