@@ -20,15 +20,11 @@ class DefaultController extends AbstractController
     public function index(Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $id = 1;
+        $id = 2;
 
         $user = $entityManager->getRepository(User::class)->find($id);
-        if (!$user) {
-            throw $this->createNotFoundException(
-                'Pas d\'utilisateur pour l\'id ' . $id
-            );
-        }
-        $user->setName('Nouveau nom d\'utilisateur!');
+
+        $entityManager->remove($user);
         $entityManager->flush();
 
         dump($user);
