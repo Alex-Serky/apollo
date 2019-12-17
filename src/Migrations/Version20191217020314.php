@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191216225740 extends AbstractMigration
+final class Version20191217020314 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -23,6 +23,7 @@ final class Version20191216225740 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 
         $this->addSql('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL)');
+        $this->addSql('CREATE TABLE video (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title VARCHAR(255) NOT NULL, user_id INTEGER DEFAULT NULL)');
     }
 
     public function down(Schema $schema) : void
@@ -31,5 +32,6 @@ final class Version20191216225740 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 
         $this->addSql('DROP TABLE user');
+        $this->addSql('DROP TABLE video');
     }
 }
