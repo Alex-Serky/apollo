@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,18 +16,11 @@ class DefaultController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $conn = $entityManager->getConnection();
-        $sql = '
-        SELECT * FROM user u
-        WHERE u.id > :id
-        ';
-
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(['id' => 3]);
-
+        $user = new User();
+        $user->setName('Alex');
+        $entityManager->persist($user);
         $entityManager->flush();
 
-        dump($stmt->fetchAll());
 
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController'
