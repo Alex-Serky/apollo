@@ -19,15 +19,24 @@ class DefaultController extends AbstractController
      */
     public function index(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(User::class);
 
-        $user = new User();
-        $user->setName('Alex');
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        dump('A new user was saved in the id of ' . $user->getId());
-        dump($user);
+        // $users = $repository->find(1);
+        // $users = $repository->findOneBy(['name' => 'Alex']);
+        // $users = $repository->findOneBy([
+        //     'name' => 'Alex',
+        //     'id' => 5
+        // ]);
+        // $users = $repository->findOneBy(
+        //     [
+        //         'name' => 'Alex'
+        //     ],
+        //     [
+        //         'id' => 'DESC'
+        //     ]
+        // );
+        $users = $repository->findAll();
+        dump($users);
 
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController'
