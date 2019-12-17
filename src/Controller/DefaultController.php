@@ -2,15 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Services\GiftsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends AbstractController
 {
@@ -20,14 +14,19 @@ class DefaultController extends AbstractController
     public function index(Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $id = 2;
 
-        $user = $entityManager->getRepository(User::class)->find($id);
+        $conn = $entityManager->getConnection();
+        $sql = '
+        SELECT * FROM user u
+        WHERE u.id > :id
+        ';
 
-        $entityManager->remove($user);
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => 3]);
+
         $entityManager->flush();
 
-        dump($user);
+        dump($stmt->fetchAll());
 
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController'
