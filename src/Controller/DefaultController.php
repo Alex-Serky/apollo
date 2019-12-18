@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Entity\User;
 use App\Entity\Video;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,21 +18,18 @@ class DefaultController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $user = $this->getDoctrine()->getRepository(User::class)->find(1);
+        $user = new User();
+        $user->setName('Alex');
+        $address = new Address();
+        $address->setStreet('Lescure');
+        $address->setNumber(91);
+        $user->setAddress($address);
 
-        $video = $this->getDoctrine()->getRepository(Video::class)->find(1);
-
-        $user->removeVideo($video);
+        $entityManager->persist($user);
+        //    $entityManager->persist($address); // required, if `cascade:persist`is not set.
         $entityManager->flush();
 
-        foreach ($user->getVideos() as $video) {
-            dump($video->getTitle());
-        }
-
-        // $entityManager->remove($user);
-        // $entityManager->flush();
-
-        // dump($user);
+        dump($user->getAddress()->getStreet());
 
         return $this->render('default/index.html.twig', [
             'controller_name' => 'Le Contrôleur'
