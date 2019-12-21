@@ -10,15 +10,22 @@ use App\Entity\Pdf;
 use App\Entity\Author;
 use App\Services\GiftsService;
 use App\Services\MyService;
+use App\Events\VideoCreatedEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\ServiceInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DefaultController extends AbstractController
 {
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * @Route("/home", name="default", name="home")
      */
@@ -26,7 +33,12 @@ class DefaultController extends AbstractController
     {
         // $entityManager = $this->getDoctrine()->getManager();
 
-        dump($request, $this);
+        $video = new \stdClass();
+        $video->title = 'Funny movie';
+        $video->category = 'funny';
+
+        $event = new VideoCreatedEvent($video);
+        $this->dispatcher->dispatch('video.created.event', $event);
 
         return $this->render('default/index.html.twig', [
             'controller_name' => 'Le Contrôleur'
