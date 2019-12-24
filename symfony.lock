@@ -106,7 +106,7 @@
         "version": "2.1.1"
     },
     "php": {
-        "version": "7.1"
+        "version": "7.2"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -217,6 +217,9 @@
             ".env"
         ]
     },
+    "symfony/form": {
+        "version": "v4.4.2"
+    },
     "symfony/framework-bundle": {
         "version": "4.4",
         "recipe": {
@@ -247,6 +250,9 @@
     "symfony/inflector": {
         "version": "v4.4.1"
     },
+    "symfony/intl": {
+        "version": "v4.4.2"
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -276,8 +282,14 @@
             "config/packages/test/monolog.yaml"
         ]
     },
+    "symfony/options-resolver": {
+        "version": "v4.4.2"
+    },
     "symfony/orm-pack": {
         "version": "v1.0.7"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.13.1"
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.13.1"
