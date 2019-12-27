@@ -18,6 +18,7 @@ use App\Services\ServiceInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use App\Form\VideoFormType;
 
 class DefaultController extends AbstractController
 {
@@ -31,17 +32,39 @@ class DefaultController extends AbstractController
      */
     public function index(Request $request)
     {
-        // $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $this->getDoctrine()->getManager();
+        // $videos = $entityManager->getRepository(Video::class)->findAll();
+        // dump($videos);
 
-        $video = new \stdClass();
-        $video->title = 'Funny movie';
-        $video->category = 'funny';
+        // $video = new Video();
+        // $video->setTitle('Rédiger un article de blog');
+        // $video->setCreatedAt(new \DateTime('tomorrow'));
 
-        $event = new VideoCreatedEvent($video);
-        $this->dispatcher->dispatch('video.created.event', $event);
+        $video = $entityManager->getRepository(Video::class)->find(1);
 
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'Le Contrôleur'
-        ]);
+        $form = $this->createForm(VideoFormType::class, $video);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('file')->getData();
+            $fileName = sha1(random_bytes(14)) . '.' . $file->guessExtension();
+            $file->move(
+                $this->getParameter('videos_directory'),
+                $fileName
+            );
+            $video->setFile($fileName);
+            $entityManager->persist($video);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render(
+            'default/index.html.twig',
+            [
+                'controller_name' => 'Le Contrôleur',
+                'form' => $form->createView(),
+            ]
+        );
     }
 }
