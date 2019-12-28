@@ -30,40 +30,27 @@ class DefaultController extends AbstractController
     /**
      * @Route("/home", name="default", name="home")
      */
-    public function index(Request $request)
+    public function index(Request $request, \Swift_Mailer $mailer)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        // $videos = $entityManager->getRepository(Video::class)->findAll();
-        // dump($videos);
+        // $entityManager = $this->getDoctrine()->getManager();
 
-        // $video = new Video();
-        // $video->setTitle('Rédiger un article de blog');
-        // $video->setCreatedAt(new \DateTime('tomorrow'));
-
-        $video = $entityManager->getRepository(Video::class)->find(1);
-
-        $form = $this->createForm(VideoFormType::class, $video);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('file')->getData();
-            $fileName = sha1(random_bytes(14)) . '.' . $file->guessExtension();
-            $file->move(
-                $this->getParameter('videos_directory'),
-                $fileName
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('send@example.com')
+            ->setTo('recipient@example.com')
+            ->setBody(
+                $this->renderView(
+                    'emails/registration.html.twig',
+                    array('name' => 'Alex')
+                ),
+                'text/html'
             );
-            $video->setFile($fileName);
-            $entityManager->persist($video);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('home');
-        }
+        $mailer->send($message);
 
         return $this->render(
             'default/index.html.twig',
             [
                 'controller_name' => 'Le Contrôleur',
-                'form' => $form->createView(),
             ]
         );
     }

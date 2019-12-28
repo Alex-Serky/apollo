@@ -23,6 +23,7 @@
         "symfony/proxy-manager-bridge": "4.4.*",
         "symfony/requirements-checker": "^1.1",
         "symfony/security-bundle": "4.4.*",
+        "symfony/swiftmailer-bundle": "^3.4",
         "symfony/twig-pack": "^1.0",
         "symfony/validator": "4.4.*",
         "symfony/web-profiler-bundle": "4.4.*",
@@ -30,15 +31,18 @@
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "doctrine/data-fixtures": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "doctrine/data-fixtures": "dev-master"
+        "symfony/browser-kit": "4.4.*",
+        "symfony/css-selector": "4.4.*",
+        "symfony/phpunit-bridge": "^5.0"
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "disable-tls": false
     },
     "autoload": {
         "psr-4": {

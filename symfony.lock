@@ -90,6 +90,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "egulias/email-validator": {
+        "version": "2.1.12"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -129,6 +132,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "swiftmailer/swiftmailer": {
+        "version": "v6.2.3"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {
@@ -143,6 +149,9 @@
     },
     "symfony/asset": {
         "version": "v4.4.1"
+    },
+    "symfony/browser-kit": {
+        "version": "v4.4.2"
     },
     "symfony/cache": {
         "version": "v4.4.1"
@@ -166,6 +175,9 @@
             "config/bootstrap.php"
         ]
     },
+    "symfony/css-selector": {
+        "version": "v4.4.2"
+    },
     "symfony/debug": {
         "version": "v4.4.1"
     },
@@ -186,6 +198,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.4.1"
+    },
+    "symfony/dom-crawler": {
+        "version": "v4.4.2"
     },
     "symfony/dotenv": {
         "version": "v4.4.1"
@@ -288,6 +303,22 @@
     "symfony/orm-pack": {
         "version": "v1.0.7"
     },
+    "symfony/phpunit-bridge": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "170be6250b77b421f02e986e2853df86c7bd6516"
+        },
+        "files": [
+            ".env.test",
+            "bin/phpunit",
+            "config/bootstrap.php",
+            "phpunit.xml.dist",
+            "tests/.gitignore"
+        ]
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.13.1"
     },
@@ -367,6 +398,20 @@
     },
     "symfony/stopwatch": {
         "version": "v4.4.1"
+    },
+    "symfony/swiftmailer-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "ae4d22af30bbd484506bc1817c5a3ef72c855b93"
+        },
+        "files": [
+            "config/packages/dev/swiftmailer.yaml",
+            "config/packages/swiftmailer.yaml",
+            "config/packages/test/swiftmailer.yaml"
+        ]
     },
     "symfony/translation-contracts": {
         "version": "v1.1.7"
