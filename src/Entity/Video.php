@@ -50,6 +50,11 @@ class Video extends File
      */
     private $duration;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\SecurityUser", inversedBy="videos")
+     */
+    private $securityUser;
+
     public function getUser(): ?User
     {
         return $this->user;
@@ -118,6 +123,18 @@ class Video extends File
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getSecurityUser(): ?SecurityUser
+    {
+        return $this->securityUser;
+    }
+
+    public function setSecurityUser(?SecurityUser $securityUser): self
+    {
+        $this->securityUser = $securityUser;
 
         return $this;
     }

@@ -36,6 +36,9 @@
 				</code>
 			</li>
 		</ul>
-
+		{# {{ form(form) }} #}
+		{% if app.user %}
+			<a href="{{ path('logout') }}">logout</a>
+		{% endif %}
 	</div>
 {% endblock %}
